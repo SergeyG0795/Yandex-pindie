@@ -1,17 +1,19 @@
 "use client";
 
 import Styles from './AuthForm.module.css';
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {authorize, isResponseOk, setJWT} from "@/app/api/api-utils";
 import {endpoints} from "@/app/api/config";
+import {AuthContext} from "@/app/context/app-context";
 
 export const AuthForm = (props) => {
-
+    const authContext = useContext(AuthContext);
     const [authData, setAuthData] = useState({identifier: "", password: ""});
     const [useData, setUserData] = useState(null);
     const [message, setMessage] = useState({status: null, text: null})
 
     const handleInput = (e) => {
+
         const newAuthData = authData;
         newAuthData[e.target.name] = e.target.value;
         setAuthData(newAuthData);
@@ -20,9 +22,7 @@ export const AuthForm = (props) => {
         e.preventDefault();
         const userData = await authorize(endpoints.auth, authData);
         if (isResponseOk(userData)) {
-            setUserData(userData);
-            setJWT(userData.jwt);
-            props.setAuth(true)
+            authContext.login(userData.user, userData.jwt);
             setMessage({status: 'success', text: 'Вы авторизовались!'});
         } else {
             setMessage({status: 'error', text: 'неверные почта или пароль'});
@@ -31,13 +31,14 @@ export const AuthForm = (props) => {
 
     useEffect(() => {
         let timer;
-        if (useData) {
+        if (authContext.user) {
             timer = setTimeout(() => {
+                setMessage({status: null, text: null});
                 props.close();
             }, 1000);
         }
         return () => clearTimeout(timer);
-    }, [useData]);
+    }, [authContext.user]);
 
     return (
         <form className={Styles['form']} onSubmit={handleSubmit}>

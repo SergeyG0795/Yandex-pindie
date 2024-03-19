@@ -7,32 +7,17 @@ import {Popup} from "@/app/components/Popup/Popup";
 import {AuthForm} from "@/app/components/AuthForm/AuthForm";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {authorize, getJWT, getMe, isResponseOk, removeJWT} from "/app/api/api-utils";
-import {endpoints} from "/app/api/config";
+import {useContext} from "react";
+import {AuthContext} from "@/app/context/app-context";
 
 
 export default function Header() {
-
-    useEffect(() => {
-        const jwt = getJWT()
-        if (jwt) {
-            getMe(endpoints.me, jwt).then((userData) => {
-                if (isResponseOk(userData)) {
-                    setIsAuthorized(true)
-                } else {
-                    setIsAuthorized(false)
-                    removeJWT()
-                }
-            })
-        }
-    }, []);
+    const authContext = useContext(AuthContext);
 
     const handleLogout = () => {
-        setIsAuthorized(false);
-        removeJWT();
-    }
+        authContext.logout();
+    };
 
-    const [isAuthorized, setIsAuthorized] = useState(false);
     const [popupIsOpened, setPopupIsOpened] = useState(false);
 
     const openPopup = () => {
@@ -96,9 +81,9 @@ export default function Header() {
                     </li>
                 </ul>
                 <div className={Styles['auth']}>
-                    {isAuthorized ? (
+                    {authContext.isAuth ? (
                         <button className={Styles['auth__button']} onClick={handleLogout}>Выйти</button>
-                    ): (
+                    ) : (
                         <button className={Styles['auth__button']} onClick={openPopup}>Войти</button>
                     )}
 
@@ -106,7 +91,7 @@ export default function Header() {
             </nav>
             <Overlay isOpened={popupIsOpened} close={closePopup}/>
             <Popup popupIsOpened={popupIsOpened} close={closePopup}>
-                <AuthForm close={closePopup} setAuth={setIsAuthorized}/>
+                <AuthForm close={closePopup}/>
             </Popup>
 
         </header>

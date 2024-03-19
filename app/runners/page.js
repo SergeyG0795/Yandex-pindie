@@ -1,16 +1,12 @@
-import {getGamesByCategory} from "@/app/data/data-utils";
+'use client';
 import CardList from "@/app/components/CardsList/CardList";
-import Promo from "@/app/components/Promo/Promo";
+import {endpoints} from "@/app/api/config";
+import {useGetDataByCategory} from "@/app/api/api-hooks";
+import {Preloader} from "@/app/components/Preloader/Preloader";
 
 export default function Runners() {
-
-    const runnerGames = getGamesByCategory("runner");
-
-
-    return (
-        <main className="main">
-            <CardList id="runner" title="runner" data={runnerGames}/>
-            <Promo/>
-        </main>
-    );
+    const runnerGames = useGetDataByCategory(endpoints.games, "runner");
+    return (<main className="main-inner">
+        {runnerGames ? (<CardList id="runner" title="runner" data={runnerGames}/>) : (<Preloader/>)}
+    </main>);
 };
