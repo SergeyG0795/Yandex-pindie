@@ -6,12 +6,11 @@ import {GameNotFound} from "/app/not-found/page";
 import {checkIfUserVoted, getJWT, getNormalizedGameDataById, isResponseOk, removeJWT} from "@/app/api/api-utils";
 import {endpoints} from "@/app/api/config";
 import {Preloader} from "@/app/components/Preloader/Preloader";
-import {useContext} from "react";
-import {AuthContext} from "@/app/context/app-context";
+import {useStore} from "@/app/store/app-store";
 
 
 export default function Page(props) {
-    const authContext = useContext(AuthContext);
+    const authContext = useStore();
     const [game, setGame] = useState(null);
     const [preloaderVisible, setPreloaderVisible] = useState(true);
     const [isVoted, setIsVoted] = useState(false);

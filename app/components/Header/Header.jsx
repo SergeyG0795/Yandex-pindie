@@ -7,12 +7,11 @@ import {Popup} from "@/app/components/Popup/Popup";
 import {AuthForm} from "@/app/components/AuthForm/AuthForm";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {useContext} from "react";
-import {AuthContext} from "@/app/context/app-context";
+import {useStore} from "@/app/store/app-store";
 
 
 export default function Header() {
-    const authContext = useContext(AuthContext);
+    const authContext = useStore();
 
     const handleLogout = () => {
         authContext.logout();

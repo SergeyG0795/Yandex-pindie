@@ -1,15 +1,14 @@
 "use client";
 
 import Styles from './AuthForm.module.css';
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {authorize, isResponseOk, setJWT} from "@/app/api/api-utils";
 import {endpoints} from "@/app/api/config";
-import {AuthContext} from "@/app/context/app-context";
+import {useStore} from "@/app/store/app-store";
 
 export const AuthForm = (props) => {
-    const authContext = useContext(AuthContext);
+    const authContext = useStore();
     const [authData, setAuthData] = useState({identifier: "", password: ""});
-    const [useData, setUserData] = useState(null);
     const [message, setMessage] = useState({status: null, text: null})
 
     const handleInput = (e) => {
