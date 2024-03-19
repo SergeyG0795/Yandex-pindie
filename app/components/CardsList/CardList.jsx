@@ -1,7 +1,10 @@
 import Styles from './CardList.module.css'
 import Card from "/app/components/Card/Card";
+import Link from "next/link";
+
 
 export default function CardList(props) {
+
     return (
         <section className={Styles['list-section']}>
             <h2 className={Styles['list-title']} id={props.id}>
@@ -11,9 +14,9 @@ export default function CardList(props) {
                 {props.data.map((item) => {
                     return (
                         <li className={Styles['card-list__item']} key={item.id}>
-                            <a href={item.link} target='_blank' className={Styles.link}>
+                            <Link href={`/games/${item.id}`} className={Styles.link}>
                                 <Card {...item} />
-                            </a>
+                            </Link>
                         </li>
                     )
                 })}
