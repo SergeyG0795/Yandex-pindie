@@ -1,5 +1,5 @@
 'use client';
-import CardList from "@/app/components/CardsList/CardList";
+import CardsListSection from "@/app/components/CardsListSection/CardsListSection";
 import {endpoints} from "@/app/api/config";
 import {useGetDataByCategory} from "@/app/api/api-hooks";
 import {Preloader} from "@/app/components/Preloader/Preloader";
@@ -7,6 +7,6 @@ import {Preloader} from "@/app/components/Preloader/Preloader";
 export default function Shouter() {
     const shouterGames = useGetDataByCategory(endpoints.games, "runner");
     return (<main className="main-inner">
-        {shouterGames ? (<CardList id="shooter" title="shooter" data={shouterGames}/>) : (<Preloader/>)}
+        {shouterGames ? (<CardsListSection id="shooter" title="shooter" data={shouterGames}/>) : (<Preloader/>)}
     </main>);
 };

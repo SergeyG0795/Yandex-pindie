@@ -2,8 +2,8 @@
 
 import Styles from "./Game.module.css";
 import {useEffect, useState} from "react";
-import {GameNotFound} from "/app/not-found/page";
-import {checkIfUserVoted, getJWT, getNormalizedGameDataById, isResponseOk, removeJWT} from "@/app/api/api-utils";
+import {GameNotFound} from "@/app/not-found/page";
+import {checkIfUserVoted, getNormalizedGameDataById, isResponseOk, vote} from "@/app/api/api-utils";
 import {endpoints} from "@/app/api/config";
 import {Preloader} from "@/app/components/Preloader/Preloader";
 import {useStore} from "@/app/store/app-store";

@@ -1,6 +1,4 @@
 import Styles from "./Overlay.module.css";
-import {AuthForm} from "/app/components/AuthForm/AuthForm";
-import {Popup} from "/app/components/Popup/Popup";
 
 export const Overlay = (props) => {
   return (

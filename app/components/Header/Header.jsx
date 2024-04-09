@@ -1,5 +1,5 @@
 'use client';
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 import Styles from './Header.module.css'
 import {Overlay} from "@/app/components/Overlay/Overlay";
@@ -27,24 +27,19 @@ export default function Header() {
     };
 
     const pathname = usePathname();
-    const LogoHeaderImage = (
-        <div className={Styles['logo']}>
+    const LogoHeaderImage = (<div className={Styles['logo']}>
             <img
                 className={Styles['logo__image']}
                 src="/images/logo.svg"
                 alt="Логотип Pindie"
             />
-        </div>
-    );
+        </div>);
 
-    const LogoHeaderLink = (
-        <Link href="/" className={Styles['logo']}>
+    const LogoHeaderLink = (<Link href="/" className={Styles['logo']}>
             {LogoHeaderImage}
-        </Link>
-    );
+        </Link>);
 
-    return (
-        <header className={Styles['header']}>
+    return (<header className={Styles['header']}>
             {pathname === "/" ? LogoHeaderImage : LogoHeaderLink}
             <nav className={Styles['menu']}>
                 <ul className={Styles['menu__list']}>
@@ -80,11 +75,7 @@ export default function Header() {
                     </li>
                 </ul>
                 <div className={Styles['auth']}>
-                    {authContext.isAuth ? (
-                        <button className={Styles['auth__button']} onClick={handleLogout}>Выйти</button>
-                    ) : (
-                        <button className={Styles['auth__button']} onClick={openPopup}>Войти</button>
-                    )}
+                    {authContext.isAuth ? (<button className={Styles['auth__button']} onClick={handleLogout}>Выйти</button>) : (<button className={Styles['auth__button']} onClick={openPopup}>Войти</button>)}
 
                 </div>
             </nav>
@@ -93,10 +84,8 @@ export default function Header() {
                 <AuthForm close={closePopup}/>
             </Popup>
 
-        </header>
-    )
-}
-;
+        </header>)
+};
 
 
 
